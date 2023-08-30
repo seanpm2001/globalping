@@ -19,6 +19,7 @@ describe('Timeout results', () => {
 	before(async () => {
 		sandbox = sinon.createSandbox({ useFakeTimers: true });
 		await td.replaceEsm('crypto-random-string', {}, cryptoRandomString);
+		await td.replaceEsm('../../../../src/lib/ws/helper/throttle.ts', { throttle: f => f });
 		await td.replaceEsm('../../../../src/lib/ip-ranges.ts', { getRegion: () => 'gcp-us-west4', populateMemList: () => Promise.resolve() });
 		({ getTestServer, addFakeProbe, deleteFakeProbe } = await import('../../../utils/server.js'));
 		const app = await getTestServer();
